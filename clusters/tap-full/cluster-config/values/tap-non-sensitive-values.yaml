@@ -1,0 +1,44 @@
+---
+tap_install:
+  values:
+    profile: full
+    ceip_policy_disclosed: true
+    shared:
+      ingress_domain: "full.tap.nycpivot.com"
+    supply_chain: basic
+    ootb_supply_chain_basic:
+      registry:
+        server: tanzuapplicationregistry.azurecr.io
+        repository: "supply-chain"
+    contour:
+      envoy:
+        service:
+          type: LoadBalancer
+    ootb_templates:
+      iaas_auth: true
+    tap_gui:
+      service_type: LoadBalancer
+      app_config:
+        catalog:
+          locations:
+            - type: url
+              target: https://github.com/nycpivot/tanzu-application-platform/catalog-info.yaml
+    metadata_store:
+      ns_for_export_app_cert: "default"
+      app_service_type: LoadBalancer
+    scanning:
+      metadataStore:
+        url: "metadata-store.full.tap.nycpivot.com"
+    grype:
+      namespace: "default"
+      targetImagePullSecret: "registry-credentials"
+    cnrs:
+      domain_name: full.tap.nycpivot.com
+    namespace_provisioner:
+      controller: false
+      gitops_install:
+        ref: origin/main
+        subPath: clusters/tap-full/cluster-config/namespaces
+        url: https://github.com/nycpivot/tap-gitops.git
+    excluded_packages:
+      - policy.apps.tanzu.vmware.com
