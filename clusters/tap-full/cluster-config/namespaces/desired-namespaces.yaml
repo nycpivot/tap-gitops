@@ -5,3 +5,5 @@ namespaces:
 #! for a namespace will be available under data.values for templating additional sources
 - name: dev
 - name: qa
+- name: uat
+
